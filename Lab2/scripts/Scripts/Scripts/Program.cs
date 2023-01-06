@@ -54,7 +54,7 @@ static void GenerateChecks(int amountOfClients)
         int n = random.Next(1, 6);
         for (int check = 0; check < n; check++)
         {
-            sw.WriteLine($"{ctr++},20{random.Next(18, 23)}-{random.Next(1, 13)}-{random.Next(1, 29)} {random.Next(8, 18)}:{random.Next(60)}:{random.Next(60)},0,{client}");
+            sw.WriteLine($"{ctr++},20{random.Next(18, 23)}-{random.Next(1, 13)}-{random.Next(1, 29)} {random.Next(8, 18)}:{random.Next(60)}:{random.Next(60)},0,{client}",0);
         }
     }
 
@@ -89,9 +89,10 @@ static void GenerateRooms(int amountOfHotels)
 
 static void GenerateTours(int amountOfChecks)
 {
-    StreamWriter sw = new StreamWriter("C:/Users/youn1on/Desktop/Labs/3_semester/DB/Lab2/tours.csv", false);
+    StreamWriter sw = new StreamWriter("C:/Users/youn1on/Desktop/Labs/3_semester/DB/Lab2/tours.sql", false);
     Random random = new Random();
-    int ctr = 1; 
+    string prefix =
+        "insert into package_tour(check_id, hotel_id, date_of_departure, return_date, number_of_people) VALUE (";
     for (int check = 1; check <= amountOfChecks; check++)
     {
         int n = random.Next(1, 4);
@@ -122,14 +123,14 @@ static void GenerateTours(int amountOfChecks)
             }
 
             int returnHour = random.Next(24);
-            sw.WriteLine($"{ctr++},{check},{hotel},\"{year}-{month}-{day} {hour}:{minutes}:00\",\"{returnYear}-{returnMonth}-{returnDay} {returnHour}:00:00\",{numberOfPeople}");
+            sw.WriteLine(prefix+$"{check},{hotel},'{year}-{month}-{day} {hour}:{minutes}:00','{returnYear}-{returnMonth}-{returnDay} {returnHour}:00:00',{numberOfPeople});");
         }
     }
 
     sw.Close();
 }
 
-GenerateRooms(20);
-// GenerateChecks(151);
+//GenerateRooms(20);
+GenerateChecks(151);
 
 
