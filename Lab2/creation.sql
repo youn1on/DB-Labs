@@ -1,4 +1,4 @@
-drop schema travel_agency;
+drop schema if exists travel_agency;
 
 create schema travel_agency;
 
@@ -22,6 +22,7 @@ create table `Check`(
     `Date` datetime not null default now(),
     Discount int not null default 0,
     Client_ID int not null,
+    Sum int default 0,
     constraint PK_Check primary key (Check_ID),
     constraint FK_Check_Client foreign key (Client_ID)
         references Client(Client_ID),
